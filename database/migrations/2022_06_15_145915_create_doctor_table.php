@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('doctor', function (Blueprint $table) {
             $table->id();
             $table->foreignId('specialist_id')->constrained('specialist');
-            $table->foreignId('user_id')->constrained('user');
+            $table->foreignId('user_id')->constrained('users');
             $table->string('name');
             $table->string('fee');
             $table->longText('photo')->nullable();

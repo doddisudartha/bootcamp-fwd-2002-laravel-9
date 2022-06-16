@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('appointment', function (Blueprint $table) {
             $table->id();
             $table->foreignId('doctor_id')->constrained('doctor');
-            $table->foreignId('user_id')->constrained('user');
+            $table->foreignId('user_id')->constrained('users');
             $table->foreignId('consultation_id')->constrained('consultation');
             $table->enum('level', [1,2,3]);
             $table->date('date');
