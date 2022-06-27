@@ -19,6 +19,15 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+    use SoftDeletes;
+
+    protected $dates = [
+        'updated_at',
+        'created_at',
+        'deleted_at',
+        'email_verified_at',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -60,21 +69,31 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    //many to many
-    public function role()
-    {
-        return $this->belongsToMany('App\Models\ManagementAccess\Role');
-    }
-
     //one to one
     public function detail_user()
     {
         return $this->hasOne('App\Models\ManagementAccess\DetailUser', 'user_id');
     }
 
+    public function doctor()
+    {
+        return $this->hasOne('App\Models\Operational\Doctor', 'user_id');
+    }
+
+    //many to many
+    public function role()
+    {
+        return $this->belongsToMany('App\Models\ManagementAccess\Role');
+    }
+
     //one to many
     public function role_user()
     {
         return $this->hasMany('App\Models\ManagementAccess\RoleUser', 'user_id');
+    }
+
+    public function appointment()
+    {
+        return $this->hasMany('App\Models\Operational\Appointment', 'user_id');
     }
 }

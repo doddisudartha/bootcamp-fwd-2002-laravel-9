@@ -19,10 +19,25 @@ class Permission extends Model
         'created_at',
         'updated_at',
         'deleted_at',
-    ]
+    ];
 
     //declare fillable fields
     protected $fillable = [
+        'title',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
 
-    ]
+    // many to many
+    public function role()
+    {
+        return $this->belongsToMany('App\Models\ManagementAccess\Role');
+    }
+
+    // one to many
+    public function permission_role()
+    {
+        return $this->hasMany('App\Models\ManagementAccess\PermissionRole', 'permission_id');
+    }
 }
